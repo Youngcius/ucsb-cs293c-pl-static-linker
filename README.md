@@ -8,21 +8,94 @@ Course instructor: [Markus Mock](https://github.com/MarkusMock)
 
 Project group member: [Zhaohui Yang](https://github.com/youngcius) and [Grace Zhang](https://github.com/gracsoo)
 
+Report: [2023_Spring_CS292C_Project_Report.pdf](./docs/2023_Spring_CS292C_Project_Report.pdf)
 
+## Introduction
+
+**Linker** is a program that combines multiple object files and libraries to create an executable or a shared library. It is a crucial part of the software development process that follows the compilation stage.
+
+When you write a program in a high-level programming language like C or C++, the source code is typically compiled into object files. These object files contain machine code instructions and data specific to each source file. However, they are not directly executable.
+
+The linker's primary role is to resolve references between different object files and libraries, ensuring that all the required functions and variables are properly connected. It mainly performs the following tasks:
+
+1. Symbol resolution: The linker resolves symbols, such as function names and global variables, by matching references in one object file with definitions in other object files or libraries. It ensures that all symbols are correctly linked and available for the program to execute.
+2. Address relocation: The linker adjusts the memory addresses of symbols based on the final layout of the executable or shared library. It resolves any relative addresses and ensures that the program can access memory correctly.
+
+Particularly, both object files and executable files are binary ELF-format in Linux. Each object file is comprised of **section**s. Each executable file is comprised of **segment**s.
+
+- Compilers, assemblers, and linkers treat ELF as a set of sections described in the section header table.
+
+- The loader treats ELF as a set of segments described by the program header table.
+
+- A segment typically contains one or more sections, and a section typically contains one or more symbols.
+
+- A segment typically contains one or more sections, and a section typically contains one or more symbols.
+
+**Structure of object files** (section is the basic component):
+
+```
+=============================================
+--- ELF Header 
+---------------------------------------------
+--- Program Header Table (optional, ignored)
+---------------------------------------------
+--- section: .text
+--- section: .data
+--- section: .rodata
+--- section: .bss
+--- section: .symtab
+--- section: .strtab
+--- section: .rel.text
+--- section: .rel.data
+--- section: .rel.rodata
+--- section: .line
+--- section: .debug
+--- ...
+---------------------------------------------
+--- Section Header Table
+=============================================
+```
+
+**Structure of executable files** (section is the basic component):
+
+```
+=============================================
+--- ELF Header
+---------------------------------------------
+--- Program Header Table
+---------------------------------------------
+--- segment: read-only
+--- segment: read-write
+--- segment: non-loadable and optional info
+--- ...
+---------------------------------------------
+--- Section Header Table (optional, ignored)
+=============================================
+```
 
 ## Usage
 
+**1. Test via Makefile**
 
+Use `make`,  `make test` or `make test-exe` to run our simple test case, in which two relocatable files (`main.o` and `sum.o`) are linked into a executable file `main.out`, and the corresponding result of running `main.out` is outputted and is further compared with that of standard GNU's results.
 
+**2. Customized usage of our static linker**
 
+```shell
+python main.py <.o file 1> <.o file 2> ... <.o file n> -e <exe filename>
+```
+
+For instance, the `make` command above internally execute `python main.py main.o sum.o -e main.out`.
 
 ## Result
 
-There is a video demo https://drive.google.com/file/d/1n00N1DC503Ol_BSTi7pbVV3qyfLet1fB/view?usp=sharing.
+There is a video demo https://drive.google.com/file/d/1n00N1DC503Ol_BSTi7pbVV3qyfLet1fB/view?usp=sharing. 
+
+Also, see [report](./dosc/2023_Spring_CS292C_Project_Report.pdf) for details.
 
 By simply run `make` command, you will see output like:
 
-```shell
+```
 ─────────────────────────────────── Before merging and relocation ────────────────────────────────────
 Relocation infos:
 +-----+-----------+---------+-------------------------+--------+--------+------+
@@ -82,7 +155,7 @@ All symbols:
 +-----+-----------------------+----------------------+------------------------+-------+------+-------+
 ```
 
-```shell
+```
 ──────────────────────────────────── After merging and relocation ────────────────────────────────────
 Sections:
 +-----+---------+------------------------+---------+------+----------+-------+---------+
@@ -117,7 +190,7 @@ Symbols:
 
 ```
 
-```shell
+```
 ─────────────────────────────────────────── after building ───────────────────────────────────────────
 Sections:
 +-----+---------+------------------------+--------+------+----------+-------+---------+
