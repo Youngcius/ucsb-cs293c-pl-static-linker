@@ -1,0 +1,65 @@
+
+main.out:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000401000 <.text>:
+  401000:	f3 0f 1e fa          	endbr64 
+  401004:	55                   	push   %rbp
+  401005:	48 89 e5             	mov    %rsp,%rbp
+  401008:	e8 2c 00 00 00       	call   0x401039
+  40100d:	be 3c 00 00 00       	mov    $0x3c,%esi
+  401012:	89 c7                	mov    %eax,%edi
+  401014:	e8 03 00 00 00       	call   0x40101c
+  401019:	90                   	nop
+  40101a:	5d                   	pop    %rbp
+  40101b:	c3                   	ret    
+  40101c:	f3 0f 1e fa          	endbr64 
+  401020:	55                   	push   %rbp
+  401021:	48 89 e5             	mov    %rsp,%rbp
+  401024:	89 7d fc             	mov    %edi,-0x4(%rbp)
+  401027:	89 75 f8             	mov    %esi,-0x8(%rbp)
+  40102a:	8b 45 f8             	mov    -0x8(%rbp),%eax
+  40102d:	8b 55 fc             	mov    -0x4(%rbp),%edx
+  401030:	89 c0                	mov    %eax,%eax
+  401032:	89 d7                	mov    %edx,%edi
+  401034:	0f 05                	syscall 
+  401036:	90                   	nop
+  401037:	5d                   	pop    %rbp
+  401038:	c3                   	ret    
+  401039:	f3 0f 1e fa          	endbr64 
+  40103d:	55                   	push   %rbp
+  40103e:	48 89 e5             	mov    %rsp,%rbp
+  401041:	48 83 ec 10          	sub    $0x10,%rsp
+  401045:	be 02 00 00 00       	mov    $0x2,%esi
+  40104a:	48 8d 05 af 0f 00 00 	lea    0xfaf(%rip),%rax        # 0x402000
+  401051:	48 89 c7             	mov    %rax,%rdi
+  401054:	e8 08 00 00 00       	call   0x401061
+  401059:	89 45 fc             	mov    %eax,-0x4(%rbp)
+  40105c:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  40105f:	c9                   	leave  
+  401060:	c3                   	ret    
+  401061:	f3 0f 1e fa          	endbr64 
+  401065:	55                   	push   %rbp
+  401066:	48 89 e5             	mov    %rsp,%rbp
+  401069:	48 89 7d e8          	mov    %rdi,-0x18(%rbp)
+  40106d:	89 75 e4             	mov    %esi,-0x1c(%rbp)
+  401070:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+  401077:	c7 45 f8 00 00 00 00 	movl   $0x0,-0x8(%rbp)
+  40107e:	eb 1d                	jmp    0x40109d
+  401080:	8b 45 f8             	mov    -0x8(%rbp),%eax
+  401083:	48 98                	cltq   
+  401085:	48 8d 14 85 00 00 00 	lea    0x0(,%rax,4),%rdx
+  40108c:	00 
+  40108d:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+  401091:	48 01 d0             	add    %rdx,%rax
+  401094:	8b 00                	mov    (%rax),%eax
+  401096:	01 45 fc             	add    %eax,-0x4(%rbp)
+  401099:	83 45 f8 01          	addl   $0x1,-0x8(%rbp)
+  40109d:	8b 45 f8             	mov    -0x8(%rbp),%eax
+  4010a0:	3b 45 e4             	cmp    -0x1c(%rbp),%eax
+  4010a3:	7c db                	jl     0x401080
+  4010a5:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  4010a8:	5d                   	pop    %rbp
+  4010a9:	c3                   	ret    
